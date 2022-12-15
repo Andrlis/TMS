@@ -1,0 +1,5 @@
+1. Install Git and IDE
+2. Create GitHub account
+3. Create GitHub repo
+4. Create one more branch and several commits
+5. Create Pull request
