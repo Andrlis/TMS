@@ -17,6 +17,7 @@ public class Main {
 
         while (true) {
             int input;
+            boolean hasDuplicates = false;
 
             System.out.print("Enter the integer and I'll check if number contains digits duplicates\n>>");
             if (scanner.hasNextInt()) {
@@ -33,11 +34,18 @@ public class Main {
 
                 for (; reminder != 0; reminder /= 10) {
                     if (buff == reminder % 10){
-                        System.out.println(true);
-                        return;
+                        hasDuplicates = true;
+                        break;
                     }
                 }
+
+                if (hasDuplicates){
+                    break;
+                }
+
             }
+
+            System.out.println(hasDuplicates);
 
             System.out.println("Do you want to proceed?(y/n)?");
             String userDecision = scanner.next();
