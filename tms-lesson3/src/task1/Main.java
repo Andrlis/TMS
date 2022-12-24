@@ -23,11 +23,13 @@ public class Main {
             String operation;
 
             System.out.print("Enter first number:\n>>");
+            //Check if number was inserted
             if (scanner.hasNextFloat()){
                 num1 = scanner.nextFloat();
             }
             else {
                 System.out.println("Oops! It's not a number.");
+                //Skip incorrect input
                 scanner.next();
                 continue;
             }
@@ -45,7 +47,7 @@ public class Main {
             System.out.print("Enter operation:\n>>");
             operation = scanner.next();
 
-            float result = 0;
+            float result;
             switch (operation) {
                 case "sum":
                     result = num1 + num2;

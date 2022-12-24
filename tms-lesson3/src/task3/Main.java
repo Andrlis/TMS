@@ -1,4 +1,4 @@
-package task2;
+package task3;
 
 import java.util.Scanner;
 
@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 
 /*
- *  Print number in reverse format
+ *  Print min & max digits from the number
  */
 public class Main {
 
@@ -15,11 +15,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        while(true) {
+        while (true) {
             int input;
-            int result = 0;
+            int min;
+            int max;
 
-            System.out.print("Enter the integer and I'll reverse it\n>>");
+            System.out.print("Enter the integer and I'll find min & max digits in it\n>>");
             if (scanner.hasNextInt()) {
                 input = scanner.nextInt();
             } else {
@@ -28,18 +29,24 @@ public class Main {
                 continue;
             }
 
+            int buff;
+            min = max = input % 10;
             for (; input != 0; input /= 10) {
-                if (result != 0) {
-                    result = result * 10;
+                buff = input % 10;
+
+                if (buff < min) {
+                    min = buff;
+                } else if (buff > max) {
+                    max = buff;
                 }
-                result += input % 10;
+
             }
 
-            System.out.println("Result: " + result);
+            System.out.println("Min: " + min + " Max: " + max);
 
             System.out.println("Do you want to proceed?(y/n)?");
             String userDecision = scanner.next();
-            if (userDecision.equals("n")){
+            if (userDecision.equals("n")) {
                 break;
             }
         }
