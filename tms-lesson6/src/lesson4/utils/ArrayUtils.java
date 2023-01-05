@@ -1,5 +1,6 @@
 package lesson4.utils;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -43,5 +44,36 @@ public class ArrayUtils {
             }
         }
         return new int[]{min, max};
+    }
+
+    private int[] addElementToArray(int[] array, int newElement){
+        if(array == null){
+            return new int[]{newElement};
+        }
+        else {
+            int[] arrayCopy = Arrays.copyOf(array, array.length+1);
+            arrayCopy[arrayCopy.length-1] = newElement;
+            return arrayCopy;
+        }
+    }
+
+    public int[] findEvenNumbers(int[] array){
+        int[] result = null;
+        for (int i : array) {
+            if (i % 2 == 0) {
+                addElementToArray(result, i);
+            }
+        }
+        return result;
+    }
+
+    public int[] findOddNumbers(int[] array){
+        int[] result = null;
+        for (int i : array) {
+            if (i % 2 != 0) {
+                addElementToArray(result, i);
+            }
+        }
+        return result;
     }
 }
