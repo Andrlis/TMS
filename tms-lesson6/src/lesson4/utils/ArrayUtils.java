@@ -76,4 +76,17 @@ public class ArrayUtils {
         }
         return result;
     }
+
+    public int[] findShortLongNumber(int[] array){
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (Math.abs(array[i]) > Math.abs(array[j])) {
+                    int buf = array[i];
+                    array[i] = array[j];
+                    array[j] = buf;
+                }
+            }
+        }
+        return new int[]{array[0], array[array.length-1]};
+    }
 }
