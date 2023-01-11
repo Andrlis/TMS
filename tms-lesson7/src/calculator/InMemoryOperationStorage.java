@@ -20,8 +20,16 @@ public class InMemoryOperationStorage implements OperationStorage {
         this.nextOperationIndex++;
     }
 
+    private Operation[] sortOperationsByAppearance(){
+        Operation[] sortedOperations = new Operation[this.operations.length];
+        for(int i = 0; i<sortedOperations.length; i++ ){
+            sortedOperations[i] = this.operations[Math.abs(this.nextOperationIndex + i - this.operations.length)];
+        }
+        return sortedOperations;
+    }
+
     @Override
     public Operation[] findAll() {
-        return operations;
+        return this.sortOperationsByAppearance();
     }
 }
