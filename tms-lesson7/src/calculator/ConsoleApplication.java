@@ -5,13 +5,13 @@ package calculator;
  */
 public class ConsoleApplication implements Application {
 
-	OperationStorage storage = new InMemoryOperationStorage(10);
+	private OperationStorage storage = new InMemoryOperationStorage(10);
 
-	Calculator calculator = new Calculator();
+	private Calculator calculator = new Calculator();
 
-	Reader reader = new ConsoleReader();
+	private Reader reader = new ConsoleReader();
 
-	Writer writer = new ConsoleWriter();
+	private Writer writer = new ConsoleWriter();
 
 	public void run() {
 		while (true) {
@@ -28,9 +28,10 @@ public class ConsoleApplication implements Application {
 					writer.write("Enter operation type");
 					String type = reader.readString();
 					Operation op = new Operation(num1, num2, type);
-					Operation result = calculator.calculate(op);
-					storage.save(result);
-					writer.write("Result = " + result.getResult());
+
+					calculator.calculate(op);
+					storage.save(op);
+					writer.write("Result = " + op.getResult());
 					writer.write("");
 					break;
 				case "2":
