@@ -23,11 +23,16 @@ public class InMemoryOperationStorage implements OperationStorage {
     private Operation[] sortOperationsByAppearance(){
         Operation[] sortedOperations = new Operation[this.operations.length];
         for(int i = 0; i<sortedOperations.length; i++ ){
-            sortedOperations[i] = this.operations[Math.abs(this.nextOperationIndex + i - this.operations.length)];
+            //System.out.println(this.nextOperationIndex);
+            //System.out.println("i: " + String.valueOf(i) + "j: " + String.valueOf(Math.abs(this.nextOperationIndex + i - this.operations.length)));
+            sortedOperations[i] = this.operations[getPosition(i)];
         }
         return sortedOperations;
     }
 
+    private int getPosition(int i){
+        return ((this.nextOperationIndex - 1 - i) >= 0) ? (this.nextOperationIndex - 1 - i) : this.operations.length + (this.nextOperationIndex - 1 - i);
+    }
     @Override
     public Operation[] findAll() {
         return this.sortOperationsByAppearance();
