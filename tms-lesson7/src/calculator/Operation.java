@@ -5,46 +5,49 @@ package calculator;
  */
 public class Operation {
 
-	private double num1;
-	private double num2;
+    private double operand1;
+    private double operand2;
+    private String operationType;
+    private double result;
 
-	private String type;
+    public Operation(double operand1, double operand2, String operationType) {
+        this.operand1 = operand1;
+        this.operand2 = operand2;
+        this.operationType = operationType;
+    }
 
-	private double result;
+    public Operation(double operand1, double operand2, String operationType, double result) {
+        this(operand1, operand2, operationType);
+        this.result = result;
+    }
 
-	public Operation(double num1, double num2, String type) {
-		this.num1 = num1;
-		this.num2 = num2;
-		this.type = type;
-	}
+    public double getOperand1() {
+        return this.operand1;
+    }
 
-	public double getNum1() {
-		return num1;
-	}
+    public double getOperand2() {
+        return this.operand2;
+    }
 
-	public double getNum2() {
-		return num2;
-	}
+    public String getOperationType() {
+        return this.operationType;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public double getResult() {
+        return result;
+    }
 
-	public double getResult() {
-		return result;
-	}
+    public void setResult(double result) {
+        this.result = result;
+    }
 
-	public void setResult(double result) {
-		this.result = result;
-	}
-
-	@Override
-	public String toString() {
-		return "Operation{" +
-				"num1=" + num1 +
-				", num2=" + num2 +
-				", type='" + type + '\'' +
-				", result=" + result +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "operand1=" + this.operand1 +
+                ", operand2=" + this.operand2 +
+                ", type='" + this.operationType + '\'' +
+                ", result=" + this.result +
+                '}';
+    }
 }

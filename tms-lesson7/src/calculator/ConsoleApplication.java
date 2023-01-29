@@ -1,58 +1,68 @@
 package calculator;
 
+import calculator.exceptions.InvalidInputException;
+import calculator.exceptions.OperationNotFoundException;
+
 /**
  * @author Simon Pirko on 9.01.23
  */
 public class ConsoleApplication implements Application {
 
-	private OperationStorage storage = new InMemoryOperationStorage(10);
+    private OperationStorage storage = new InMemoryOperationStorage(10);
+    private Calculator calculator = new Calculator();
+    private Reader reader = new ConsoleReader();
+    private Writer writer = new ConsoleWriter();
 
-	private Calculator calculator = new Calculator();
+    public void run() {
+        while (true) {
+            showMenu();
+            String userInput = reader.readString();
 
-	private Reader reader = new ConsoleReader();
+            switch (userInput) {
+                case "0":
+                    return;
+                case "1":
+                    try {
+                        Operation operation = readOperation();
 
-	private Writer writer = new ConsoleWriter();
+                        calculator.calculate(operation);
+                        storage.save(operation);
+                        writer.write("Result = " + operation.getResult());
+                    } catch (InvalidInputException | OperationNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case "2":
+                    printOperationHistory(storage.findAll());
+                    break;
+                default:
+                    writer.write("Unsupported operation");
+            }
 
-	public void run() {
-		while (true) {
-			showMenu();
-			String userInput = reader.readString();
-			switch (userInput){
-				case "0":
-					return;
-				case "1":
-					writer.write("Enter num 1");
-					double num1 = reader.readDouble();
-					writer.write("Enter num 2");
-					double num2 = reader.readDouble();
-					writer.write("Enter operation type");
-					String type = reader.readString();
-					Operation op = new Operation(num1, num2, type);
+        }
+    }
 
-					calculator.calculate(op);
-					storage.save(op);
-					writer.write("Result = " + op.getResult());
-					writer.write("");
-					break;
-				case "2":
-					printOperationHistory(storage.findAll());
-					break;
-				default:
-					writer.write("Unsupported operation");
-			}
+    private void showMenu() {
+        writer.write("Please, choose an option:\n1 - Calculate\n2 - Show history\n0 - Finish");
+    }
 
-		}
-	}
+    private void printOperationHistory(Operation[] operations) {
+        for (Operation operation : operations) {
+            if (operation != null) {
+                writer.write(operation.toString());
+            }
+        }
+    }
 
-	private void showMenu() {
-		writer.write("Please, choose an option:\n1 - Calculate\n2 - Show history\n0 - Finish");
-	}
+    //Read operation from input stream
+    private Operation readOperation() throws InvalidInputException, OperationNotFoundException {
+        writer.write("Enter operand 1:");
+        double operand1 = reader.readDouble();
+        writer.write("Enter operand 2:");
+        double operand2 = reader.readDouble();
+        writer.write("Enter operation type:");
+        OperationType operationType = reader.readOperationType();
 
-	private void printOperationHistory(Operation[] operations) {
-		for (Operation operation: operations){
-			if(operation != null) {
-				writer.write(operation.toString());
-			}
-		}
-	}
+        return new Operation(operand1, operand2, operationType.toString());
+    }
 }
