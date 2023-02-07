@@ -67,6 +67,6 @@ public class ConsoleApplication implements Application {
         writer.write("Enter operation type:");
         OperationType operationType = reader.readOperationType();
 
-        return new Operation(operand1, operand2, operationType.toString());
+        return new Operation(operand1, operand2, operationType);
     }
 }

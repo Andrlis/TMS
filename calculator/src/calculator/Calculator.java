@@ -8,7 +8,7 @@ import calculator.OperationType.*;
 public class Calculator {
 
 	Operation calculate(Operation operation) {
-		switch (OperationType.valueOf(operation.getOperationType())) {
+		switch (operation.getOperationType()) {
 			case SUM:
 				operation.setResult(operation.getOperand1() + operation.getOperand2());
 				return operation;
